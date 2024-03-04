@@ -6,12 +6,10 @@ class BaseBattery:
 
 def add_n_years(current: date, num_years: int):
   if (current.month == 2) and (current.day == 29):
-    year_later = current.replace(year=current.year + num_years,
-                                 month=current.month + 1,
-                                 day=1)
-  else:
-    year_later = current.replace(year=current.year + 1)
-  return year_later
+    return current.replace(year=current.year+num_years,
+                           month=current.month+1,
+                           day=1)
+  return current.replace(year=current.year+num_years)
 
 class SpindlerBattery(BaseBattery):
   def __init__(self,
@@ -22,7 +20,7 @@ class SpindlerBattery(BaseBattery):
     self.current_date = current_date
 
   def needs_service(self) -> bool:
-    return add_n_years(self.last_service_date, 2) > self.current_date
+    return add_n_years(self.last_service_date, 2) < self.current_date
 
 class NubbinBattery(BaseBattery):
   def __init__(self,
@@ -33,4 +31,4 @@ class NubbinBattery(BaseBattery):
     self.current_date = current_date
 
   def needs_service(self) -> bool:
-    return add_n_years(self.last_service_date, 4) > self.current_date
+    return add_n_years(self.last_service_date, 4) < self.current_date
